@@ -22,12 +22,29 @@ void on_center_button() {
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
+ int auton_select = 0;
+
+void selectAuton() {
+  while (true) {
+    if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
+      auton_select++;
+      if (auton_select > 1) {
+        auton_select = 0;
+      }
+    } else if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
+      break;
+    }
+
+    pros::delay(50);
+  }
+}
+
 void initialize() {
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello there...");
 	pros::lcd::set_text(2, "1140M");
 
-	pros::lcd::register_btn1_cb(on_center_button);
+	//pros::lcd::register_btn1_cb(on_center_button);
 
 	BackLeft.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	FrontLeft.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
@@ -36,6 +53,11 @@ void initialize() {
 	LiftFrontLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	LiftFrontRight.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	LiftBack.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+	pros::ADIGyro gyro('A');
+	pros::delay(2000);
+
+	selectAuton();
 }
 
 /**
@@ -67,17 +89,25 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
- void leftCorner1() {
 
-}
 
-void rightCorner1() {
 
+
+
+
+void skills(){
+	driveForward(1000);
+	gyroTurn(-85, 100);
+	FrontLiftUp(500);
+	driveForward(5000);
+	gyroTurn(-85, 100);
+	driveForward(1000);
 }
 
 void autonomous() {
-	//leftCorner1();
-	rightCorner1();
+	if (auton_select == 1) {
+    skills();
+	}
 }
 
 /**

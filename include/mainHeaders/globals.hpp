@@ -9,5 +9,8 @@ extern pros::Motor LiftFrontLeft;
 extern pros::Motor LiftFrontRight;
 extern pros::Motor LiftBack;
 
+// SENSORS
+extern pros::ADIGyro gyro;
+
 //CONTROLLERS
 extern pros::Controller Controller;

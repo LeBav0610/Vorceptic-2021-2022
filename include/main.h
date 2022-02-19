@@ -76,6 +76,7 @@ void opcontrol(void);
 #include "mainHeaders/backLift.hpp"
 #include "mainHeaders/frontLift.hpp"
 #include "mainHeaders/globals.hpp"
+#include "mainHeaders/pid.hpp"
 /**
  * You can add C++-only headers here
  */

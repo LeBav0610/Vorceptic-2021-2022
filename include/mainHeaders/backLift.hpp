@@ -3,3 +3,5 @@
 void setBackLift(int power);
 //DRIVER CONTROL FUNCTIONS
 void setBackLiftMotors();
+
+void BackLiftUp(double btarget);
